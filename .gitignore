@@ -1,0 +1,5 @@
+.vs/**
+MinerBot/**
+out/**
+CMakeLists.txt
+CmakePresets.json
