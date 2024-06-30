@@ -3,6 +3,7 @@
 #include <wincodec.h>
 #include <string>
 #include <opencv2/opencv.hpp>
+#include <chrono>
 
 using namespace std;
 using namespace cv;
@@ -52,11 +53,11 @@ void takeScreenshot(int left, int top, int width, int height, LPCWSTR filename) 
 }
 
 bool shouldClick(string imageName, double threshold) {
-
-    takeScreenshot(0, 0, 1920, 1080, L"screenfind2.png");
+    takeScreenshot(1100, 300, 115, 400, L"screenfind2.png");
 
     Mat screen = imread("screenfind2.png");
     Mat templateImage = imread(imageName);
+
 
     Mat result;
     matchTemplate(screen, templateImage, result, TM_CCOEFF_NORMED);
@@ -73,14 +74,14 @@ bool shouldClick(string imageName, double threshold) {
         cout << maxVal;
         return false;
     }
-
 }
 
 int main() {
-    mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-    while (!shouldClick("new_bar.png", 0.82)) {
-        cout << " waiting ";
+    while (1) {
+        while (!shouldClick("new_bar.png", 0.8)) {
+            cout << " waiting " << endl;
+        }
+        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     }
-    mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     return 0;
 }
